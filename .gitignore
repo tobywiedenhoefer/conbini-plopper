@@ -41,3 +41,7 @@ expo-env.d.ts
 # @end expo-cli
 
 ./bun.lockb
+bun.lockb
+
+./services/apiSecrets.ts
+services/apiSecrets.ts
