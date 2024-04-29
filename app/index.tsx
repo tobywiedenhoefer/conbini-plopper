@@ -1,20 +1,50 @@
 import React from "react";
 
-import { StyleSheet, View, Text } from "react-native";
+import "react-native-reanimated";
+import "react-native-gesture-handler";
+import { router } from "expo-router";
+import { useFonts } from "expo-font";
+import { TamaguiProvider, Text, Button, YStack, H1, H6, View } from "tamagui";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Example</Text>
-    </View>
-  );
+import Title from "~/components/splash/Title";
+
+import tamaguiConfig from "~/tamagui.config";
+import SubTitle from "~/components/splash/Subtitle";
+
+type Conf = typeof tamaguiConfig;
+declare module "tamagui" {
+  interface TamaguiCustomConfig extends Conf {}
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+export default function App() {
+  const [fontsLoaded] = useFonts({
+    Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
+    InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
+  });
+  if (fontsLoaded) {
+    return (
+      <TamaguiProvider config={tamaguiConfig}>
+        <View alignContent="center" justifyContent="center" flex={1}>
+          <YStack alignContent="center" justifyContent="center">
+            <YStack padding="$4">
+              <Title />
+              <SubTitle />
+            </YStack>
+            <YStack padding="$4" gap="$4" paddingTop="$5">
+              <Button
+                padding="$2"
+                themeInverse
+                onPress={() => router.push("/signup")}
+              >
+                <Text color="$white">Get Started</Text>
+              </Button>
+              <Button padding="$2" onPress={() => router.push("/login")}>
+                <Text>Log In</Text>
+              </Button>
+            </YStack>
+          </YStack>
+        </View>
+      </TamaguiProvider>
+    );
+  }
+}
