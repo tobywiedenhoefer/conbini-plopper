@@ -42,6 +42,8 @@ expo-env.d.ts
 
 ./bun.lockb
 bun.lockb
+*.lockb
+**/*.lockb
 
 ./services/apiSecrets.ts
 services/apiSecrets.ts
