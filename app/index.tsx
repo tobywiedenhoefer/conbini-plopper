@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import "react-native-reanimated";
 import "react-native-gesture-handler";
@@ -10,6 +10,7 @@ import Title from "~/components/splash/Title";
 
 import tamaguiConfig from "~/tamagui.config";
 import SubTitle from "~/components/splash/Subtitle";
+import { UserContext } from "~/contexts/UserContext";
 
 type Conf = typeof tamaguiConfig;
 declare module "tamagui" {
@@ -21,6 +22,10 @@ export default function App() {
     Inter: require("@tamagui/font-inter/otf/Inter-Medium.otf"),
     InterBold: require("@tamagui/font-inter/otf/Inter-Bold.otf"),
   });
+  const uc = useContext(UserContext);
+  if (uc.loggedIn) {
+    router.navigate("/(auth)/menus");
+  }
   if (fontsLoaded) {
     return (
       <TamaguiProvider config={tamaguiConfig}>
